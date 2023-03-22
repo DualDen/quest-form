@@ -33,6 +33,10 @@ body :where(.css-dev-only-do-not-override-ph9edi).ant-tabs >.ant-tabs-nav{
 div#nest-messages_genre, div#nest-messages_mood{
   display: block;
 }
+div#nest-messages_about_hints{
+  display: flex;
+  flex-direction: column;
+ }
 body :where(.css-dev-only-do-not-override-ph9edi)[class^="ant-form"] [class*=" ant-form"], :where(.css-dev-only-do-not-override-ph9edi)[class*=" ant-form"] [class*=" ant-form"]{
   display: block;
   text-align: left;

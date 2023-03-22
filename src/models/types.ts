@@ -36,3 +36,7 @@ export interface IUserData {
   email: string;
   password: string;
 }
+export interface IAboutHintsForm {
+  label: string,
+  name: string,
+}

@@ -1,18 +1,21 @@
-import React, { useState } from "react";
+import React, {ReactNode, useState} from "react";
 import { Input, Form, Button, Tabs, DatePicker, Checkbox, Radio } from "antd";
 import TabPane from "antd/es/tabs/TabPane";
-import { ICBOption } from "../models/types";
+import {IAboutHintsForm, ICBOption} from "../models/types";
 import { maxCheckboxCheck } from "../utils/maxChecboxCheck";
 import { LockOutlined, UserOutlined } from "@ant-design/icons";
 import { login } from "../store/reducers/ActionCreators";
 import { useAppDispatch, useAppSelector } from "../hooks/hooks";
 import { useNavigate } from "react-router-dom";
 import { setOrder } from "../store/reducers/OrderSlice";
-import {useRegisterMutation} from "../api/RegisterApi";
+import { useRegisterMutation } from "../api/RegisterApi";
+import {CheckboxValueType} from "antd/es/checkbox/Group";
+
 
 const QuestForm = () => {
   const [firstTab, setFirstTab] = useState("1");
   const [secondTab, setSecondTab] = useState("1");
+  const [aboutHintsForm,setAboutHintsForm] = useState<IAboutHintsForm[]>([]);
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const [register] = useRegisterMutation();
@@ -25,14 +28,12 @@ const QuestForm = () => {
     dispatch(setOrder(fieldsValues));
   };
   const auth = async (values: any) => {
-    await dispatch(
-      login({ email: values.email, password: values.password })
-    );
+    await dispatch(login({ email: values.email, password: values.password }));
     navigate("/order");
   };
   const registration = async (values: any) => {
     await register(values);
-  }
+  };
   const handlePrev = (): void => {
     setSecondTab((Number(secondTab) - 1).toString());
   };
@@ -61,105 +62,109 @@ const QuestForm = () => {
       <TabPane tab="tab2" key="2">
         <Tabs activeKey="1">
           <TabPane tab="tab1" key="1">
-        <div className="container">
-          <Form name="normal_login" className="login-form" onFinish={auth}>
-            <Form.Item
-              name="email"
-              rules={[
-                { required: true, message: "Please input your Username!" },
-              ]}
-            >
-              <Input
-                prefix={<UserOutlined className="site-form-item-icon" />}
-                placeholder="Username"
-              />
-            </Form.Item>
-            <Form.Item
-              name="password"
-              rules={[
-                { required: true, message: "Please input your Password!" },
-              ]}
-            >
-              <Input
-                prefix={<LockOutlined className="site-form-item-icon" />}
-                type="password"
-                placeholder="Password"
-              />
-            </Form.Item>
-            <Form.Item>
-              <a className="login-form-forgot" href="">
-                Забыли пароль?
-              </a>
-            </Form.Item>
+            <div className="container">
+              <Form name="normal_login" className="login-form" onFinish={auth}>
+                <Form.Item
+                  name="email"
+                  rules={[
+                    { required: true, message: "Please input your Username!" },
+                  ]}
+                >
+                  <Input
+                    prefix={<UserOutlined className="site-form-item-icon" />}
+                    placeholder="Username"
+                  />
+                </Form.Item>
+                <Form.Item
+                  name="password"
+                  rules={[
+                    { required: true, message: "Please input your Password!" },
+                  ]}
+                >
+                  <Input
+                    prefix={<LockOutlined className="site-form-item-icon" />}
+                    type="password"
+                    placeholder="Password"
+                  />
+                </Form.Item>
+                <Form.Item>
+                  <a className="login-form-forgot" href="">
+                    Забыли пароль?
+                  </a>
+                </Form.Item>
 
-            <Form.Item>
-              <Button
-                type="primary"
-                htmlType="submit"
-                className="login-form-button"
-                loading={isAuthLoading}
-              >
-                Войти
-              </Button>
-              Или <a href="">Зарегистрируйтесь</a>
-              <Button onClick={handleToForm}>Назад</Button>
-            </Form.Item>
-          </Form>
-        </div>
+                <Form.Item>
+                  <Button
+                    type="primary"
+                    htmlType="submit"
+                    className="login-form-button"
+                    loading={isAuthLoading}
+                  >
+                    Войти
+                  </Button>
+                  Или <a href="">Зарегистрируйтесь</a>
+                  <Button onClick={handleToForm}>Назад</Button>
+                </Form.Item>
+              </Form>
+            </div>
           </TabPane>
           <TabPane tab="tab2" key="2">
             <div className="container">
-              <Form name="normal_register" className="login-form" onFinish={registration}>
+              <Form
+                name="normal_register"
+                className="login-form"
+                onFinish={registration}
+              >
                 <Form.Item
-                    name="firstName"
-                    rules={[
-                      { required: true, message: "Please input your Username!" },
-                    ]}
+                  name="firstName"
+                  rules={[
+                    { required: true, message: "Please input your Username!" },
+                  ]}
                 >
                   <Input
-                      prefix={<UserOutlined className="site-form-item-icon" />}
-                      placeholder="Username"
+                    prefix={<UserOutlined className="site-form-item-icon" />}
+                    placeholder="Username"
                   />
                 </Form.Item>
                 <Form.Item
-                    name="lastName"
-                    rules={[
-                      { required: true, message: "Please input your Username!" },
-                    ]}
+                  name="lastName"
+                  rules={[
+                    { required: true, message: "Please input your Username!" },
+                  ]}
                 >
                   <Input
-                      prefix={<UserOutlined className="site-form-item-icon" />}
-                      placeholder="Username"
+                    prefix={<UserOutlined className="site-form-item-icon" />}
+                    placeholder="Username"
                   />
                 </Form.Item>
                 <Form.Item
-                    name="email"
-                    rules={[
-                      { required: true, message: "Please input your Username!" },
-                    ]}
+                  name="email"
+                  rules={[
+                    { required: true, message: "Please input your Username!" },
+                  ]}
                 >
                   <Input
-                      prefix={<UserOutlined className="site-form-item-icon" />}
-                      placeholder="Username"
+                    prefix={<UserOutlined className="site-form-item-icon" />}
+                    placeholder="Username"
                   />
                 </Form.Item>
                 <Form.Item
-                    name="password"
-                    rules={[
-                      { required: true, message: "Please input your Password!" },
-                    ]}
+                  name="password"
+                  rules={[
+                    { required: true, message: "Please input your Password!" },
+                  ]}
                 >
                   <Input
-                      prefix={<LockOutlined className="site-form-item-icon" />}
-                      type="password"
-                      placeholder="Password"
+                    prefix={<LockOutlined className="site-form-item-icon" />}
+                    type="password"
+                    placeholder="Password"
                   />
                 </Form.Item>
                 <Form.Item>
                   <Button
-                      type="primary"
-                      htmlType="submit"
-                      className="login-form-button"
+                    type="primary"
+                    htmlType="submit"
+                    className="login-form-button"
                   >
                     Зарегистрироваться
                   </Button>
@@ -172,6 +177,26 @@ const QuestForm = () => {
       </TabPane>
     ) : null;
   };
+  const aboutHintsCheck = (values: CheckboxValueType[]) => {
+    if (values.includes("story")) {
+      setAboutHintsForm([...aboutHintsForm,...story]);
+    }
+    else {
+    }
+    if (values.includes("memories")) {
+      const memories = [
+        {label: "Какие моменты сразу вспоминаете, думая об этом человеке?", name:"memories_think_about"},
+        {label: "Какие моменты были бы не такими яркими друг без друга?", name:"memories_without"},
+        {label: "Какие жизненные этапы вы прошли вместе?", name:"life_stages"},
+      ]
+      setAboutHintsForm([...aboutHintsForm,...memories])
+    }
+  };
+  const story = [
+    {label: "Как вы познакомились?", name:"how_meet"},
+    {label: "Через какие трудности вы прошли вместе?", name:"what_hardships"},
+    {label: "Какие у вас совместные планы на будущее?", name:"plans"},
+  ]
   const genreOptions: ICBOption[] = [
     {
       label:
@@ -223,6 +248,15 @@ const QuestForm = () => {
       label: "Серьёзной (эмоциональный и серьёзный тон, более медленный темп)",
       value: "serious",
     },
+  ];
+  const aboutHintsOptions: ICBOption[] = [
+    { label: "История Ваших отношений", value: "story" },
+    { label: "Любимые совместные воспоминания", value: "memories" },
+    { label: "Что эти отношения значат для Вас", value: "what_means" },
+    { label: "Любимые совместные занятия", value: "hobbies" },
+    { label: "Как эти отношения сформировали Вас", value: "how_shape" },
+    { label: "Совместные шутки и смешные истории", value: "jokes" },
+    { label: "Другие истории и воспоминания", value: "other_stories" },
   ];
   const validateMessages = {
     required: "Это обязательное поле!",
@@ -358,6 +392,17 @@ const QuestForm = () => {
                   >
                     <Input.TextArea placeholder="Ваш ответ" />
                   </Form.Item>
+                  <Form.Item name="about_hints" label="О чем Вы хотите рассказать? Выберите две подсказки">
+                    <Checkbox.Group options={aboutHintsOptions} onChange={(values) => {
+                      maxCheckboxCheck(values, aboutHintsOptions, 2);
+                      aboutHintsCheck(values);
+                    }}/>
+                  </Form.Item>
+                  {aboutHintsForm.map((form) => {
+                   return <Form.Item key={form.name} name={form.name} label={form.label} rules={[{required: true}]}>
+                      <Input.TextArea/>
+                    </Form.Item>
+                  })}
                   <Button onClick={handlePrev}>Назад</Button>
                   {isAuthButtonCheck()}
                 </TabPane>
