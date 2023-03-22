@@ -1,7 +1,7 @@
-import React, {ReactNode, useState} from "react";
+import React, { useState} from "react";
 import { Input, Form, Button, Tabs, DatePicker, Checkbox, Radio } from "antd";
 import TabPane from "antd/es/tabs/TabPane";
-import {IAboutHintsForm, ICBOption} from "../models/types";
+import {IAboutHintsForm} from "../models/types";
 import { maxCheckboxCheck } from "../utils/maxChecboxCheck";
 import { LockOutlined, UserOutlined } from "@ant-design/icons";
 import { login } from "../store/reducers/ActionCreators";
@@ -10,6 +10,7 @@ import { useNavigate } from "react-router-dom";
 import { setOrder } from "../store/reducers/OrderSlice";
 import { useRegisterMutation } from "../api/RegisterApi";
 import {CheckboxValueType} from "antd/es/checkbox/Group";
+import {aboutHintsOptions, genreOptions, memories, moodOptions, story} from "../utils/constants";
 
 
 const QuestForm = () => {
@@ -20,6 +21,7 @@ const QuestForm = () => {
   const dispatch = useAppDispatch();
   const [register] = useRegisterMutation();
   const { isAuth, isAuthLoading } = useAppSelector((state) => state.authSlice);
+  console.log(aboutHintsForm)
   const onFinish = (values: any): any => {
     const fieldsValues = {
       ...values,
@@ -178,86 +180,21 @@ const QuestForm = () => {
     ) : null;
   };
   const aboutHintsCheck = (values: CheckboxValueType[]) => {
+    if (values.includes("memories")) {
+      setAboutHintsForm([...aboutHintsForm,...memories]);
+    }
+    else {
+      const filteredHints = aboutHintsForm.filter(item => !memories.includes(item));
+      setAboutHintsForm(filteredHints);
+    }
     if (values.includes("story")) {
       setAboutHintsForm([...aboutHintsForm,...story]);
     }
     else {
-    }
-    if (values.includes("memories")) {
-      const memories = [
-        {label: "Какие моменты сразу вспоминаете, думая об этом человеке?", name:"memories_think_about"},
-        {label: "Какие моменты были бы не такими яркими друг без друга?", name:"memories_without"},
-        {label: "Какие жизненные этапы вы прошли вместе?", name:"life_stages"},
-      ]
-      setAboutHintsForm([...aboutHintsForm,...memories])
+      const filteredHints = aboutHintsForm.filter(item => !story.includes(item));
+      setAboutHintsForm(filteredHints);
     }
   };
-  const story = [
-    {label: "Как вы познакомились?", name:"how_meet"},
-    {label: "Через какие трудности вы прошли вместе?", name:"what_hardships"},
-    {label: "Какие у вас совместные планы на будущее?", name:"plans"},
-  ]
-  const genreOptions: ICBOption[] = [
-    {
-      label:
-        "Сонграйтер (просто фортепиано или гитара, фокус на повествовании)",
-      value: "songwriter",
-    },
-    {
-      label:
-        "Рэп/Хип-Хоп (ритмичный вокал, свежее звучание и перкуссионный бит)",
-      value: "rap",
-    },
-    {
-      label: "R&B (проникновенный вокал, грув и крутая атмосфера)",
-      value: "r&b",
-    },
-    {
-      label: "Рок (энергичное электрическое звучание для любителей оторваться)",
-      value: "rock",
-    },
-    {
-      label:
-        "Акустический поп (более широкий инструментарий, акцент на мелодии)",
-      value: "acoustic_pop",
-    },
-  ];
-  const moodOptions: ICBOption[] = [
-    {
-      label: "Душевной (подчеркнёт эмоциональные моменты, истории и чувства)",
-      value: "soulful",
-    },
-    {
-      label: "Романтической (близкие и личные моменты, медленный темп)",
-      value: "romantic",
-    },
-    {
-      label: "Смешной (подчеркнёт комические моменты из вашей жизни)",
-      value: "funny",
-    },
-    {
-      label: "Воодушевляющей (слова ободрения и вдохновения для Ваших близких)",
-      value: "inspiring",
-    },
-    {
-      label: "Счастливой (весёлые и позитивные моменты, вызовет улыбку)",
-      value: "happy",
-    },
-    { label: "Беззаботной (весёлая и спокойная)", value: "carefree" },
-    {
-      label: "Серьёзной (эмоциональный и серьёзный тон, более медленный темп)",
-      value: "serious",
-    },
-  ];
-  const aboutHintsOptions: ICBOption[] = [
-    { label: "История Ваших отношений", value: "story" },
-    { label: "Любимые совместные воспоминания", value: "memories" },
-    { label: "Что эти отношения значат для Вас", value: "what_means" },
-    { label: "Любимые совместные занятия", value: "hobbies" },
-    { label: "Как эти отношения сформировали Вас", value: "how_shape" },
-    { label: "Совместные шутки и смешные истории", value: "jokes" },
-    { label: "Другие истории и воспоминания", value: "other_stories" },
-  ];
   const validateMessages = {
     required: "Это обязательное поле!",
   };
@@ -394,8 +331,8 @@ const QuestForm = () => {
                   </Form.Item>
                   <Form.Item name="about_hints" label="О чем Вы хотите рассказать? Выберите две подсказки">
                     <Checkbox.Group options={aboutHintsOptions} onChange={(values) => {
-                      maxCheckboxCheck(values, aboutHintsOptions, 2);
                       aboutHintsCheck(values);
+                      maxCheckboxCheck(values, aboutHintsOptions, 2);
                     }}/>
                   </Form.Item>
                   {aboutHintsForm.map((form) => {
