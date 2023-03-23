@@ -179,21 +179,32 @@ const QuestForm = () => {
       </TabPane>
     ) : null;
   };
+
   const aboutHintsCheck = (values: CheckboxValueType[]) => {
-    if (values.includes("memories")) {
-      setAboutHintsForm([...aboutHintsForm,...memories]);
+    const docListener = (e:any) => {
+      if(e.target.className != "ant-checkbox-input") return;
+      const {value} = e.target;
+      console.log(value)
+       if(value === "story" && values.includes("story")) {
+        setAboutHintsForm([...aboutHintsForm,...story]);
+      }
+      else if(value === "story" && !values.includes("story")) {
+        const filteredHints = aboutHintsForm.filter(item => !story.includes(item));
+        setAboutHintsForm(filteredHints);
+      }
+      if(value === "memories" && values.includes('memories')) {
+        setAboutHintsForm([...aboutHintsForm,...memories]);
+      }
+      else if(value === "memories" && !values.includes('memories')) {
+        const filteredHints = aboutHintsForm.filter(item => !memories.includes(item));
+        setAboutHintsForm(filteredHints);
+      }
     }
-    else {
-      const filteredHints = aboutHintsForm.filter(item => !memories.includes(item));
-      setAboutHintsForm(filteredHints);
-    }
-    if (values.includes("story")) {
-      setAboutHintsForm([...aboutHintsForm,...story]);
-    }
-    else {
-      const filteredHints = aboutHintsForm.filter(item => !story.includes(item));
-      setAboutHintsForm(filteredHints);
-    }
+   document.addEventListener('click', docListener);
+   setTimeout(() => {
+    document.removeEventListener('click',docListener,false);
+   },1)
+    
   };
   const validateMessages = {
     required: "Это обязательное поле!",
@@ -330,7 +341,7 @@ const QuestForm = () => {
                     <Input.TextArea placeholder="Ваш ответ" />
                   </Form.Item>
                   <Form.Item name="about_hints" label="О чем Вы хотите рассказать? Выберите две подсказки">
-                    <Checkbox.Group options={aboutHintsOptions} onChange={(values) => {
+                    <Checkbox.Group  options={aboutHintsOptions} onChange={(values) => {
                       aboutHintsCheck(values);
                       maxCheckboxCheck(values, aboutHintsOptions, 2);
                     }}/>
