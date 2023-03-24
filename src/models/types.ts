@@ -40,3 +40,8 @@ export interface IAboutHintsForm {
   label: string,
   name: string,
 }
+export interface IDetailOption {
+  detailLabel: string,
+  detailMainName: string,
+  detailDescriptionName: string,
+}

@@ -1,7 +1,7 @@
-import React, { useState} from "react";
+import React, {useEffect, useState} from "react";
 import { Input, Form, Button, Tabs, DatePicker, Checkbox, Radio } from "antd";
 import TabPane from "antd/es/tabs/TabPane";
-import {IAboutHintsForm} from "../models/types";
+import { IAboutHintsForm } from "../models/types";
 import { maxCheckboxCheck } from "../utils/maxChecboxCheck";
 import { LockOutlined, UserOutlined } from "@ant-design/icons";
 import { login } from "../store/reducers/ActionCreators";
@@ -9,25 +9,28 @@ import { useAppDispatch, useAppSelector } from "../hooks/hooks";
 import { useNavigate } from "react-router-dom";
 import { setOrder } from "../store/reducers/OrderSlice";
 import { useRegisterMutation } from "../api/RegisterApi";
-import {CheckboxValueType} from "antd/es/checkbox/Group";
-import {aboutHintsOptions, genreOptions, memories, moodOptions, story} from "../utils/constants";
-
+import {
+  aboutHintsOptions, detailOptions,
+  genreOptions,
+  moodOptions
+} from "../utils/constants";
+import {aboutHintsCheck} from "../utils/aboutHintsCheck";
 
 const QuestForm = () => {
   const [firstTab, setFirstTab] = useState("1");
   const [secondTab, setSecondTab] = useState("1");
-  const [aboutHintsForm,setAboutHintsForm] = useState<IAboutHintsForm[]>([]);
+  const [aboutHintsForm, setAboutHintsForm] = useState<IAboutHintsForm[]>([]);
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const [register] = useRegisterMutation();
   const { isAuth, isAuthLoading } = useAppSelector((state) => state.authSlice);
-  console.log(aboutHintsForm)
   const onFinish = (values: any): any => {
     const fieldsValues = {
       ...values,
       date: values.date.format("DD-MM-YYYY"),
     };
     dispatch(setOrder(fieldsValues));
+    console.log(fieldsValues)
   };
   const auth = async (values: any) => {
     await dispatch(login({ email: values.email, password: values.password }));
@@ -179,22 +182,6 @@ const QuestForm = () => {
       </TabPane>
     ) : null;
   };
-  const aboutHintsCheck = (values: CheckboxValueType[]) => {
-    if (values.includes("memories")) {
-      setAboutHintsForm([...aboutHintsForm,...memories]);
-    }
-    else {
-      const filteredHints = aboutHintsForm.filter(item => !memories.includes(item));
-      setAboutHintsForm(filteredHints);
-    }
-    if (values.includes("story")) {
-      setAboutHintsForm([...aboutHintsForm,...story]);
-    }
-    else {
-      const filteredHints = aboutHintsForm.filter(item => !story.includes(item));
-      setAboutHintsForm(filteredHints);
-    }
-  };
   const validateMessages = {
     required: "Это обязательное поле!",
   };
@@ -240,7 +227,16 @@ const QuestForm = () => {
                     <Input />
                   </Form.Item>
                   <Form.Item
-                    rules={[{ required: true }]}
+                    rules={[{ required: true },{validator(rule,value) {
+                      return new Promise((resolve,reject) => {
+                        if(value?.format("DD.MM.YYYY") < new Date().toLocaleDateString()) {
+                          reject("Нельзя выбрать прошедшую дату!");
+                        }
+                        else {
+                          resolve(value);
+                        }
+                      })
+                      }}]}
                     name="date"
                     label="К какой дате необходима песня?"
                   >
@@ -329,16 +325,41 @@ const QuestForm = () => {
                   >
                     <Input.TextArea placeholder="Ваш ответ" />
                   </Form.Item>
-                  <Form.Item name="about_hints" label="О чем Вы хотите рассказать? Выберите две подсказки">
+                  <Form.Item
+                    name="about_hints"
+                    label="О чем Вы хотите рассказать? Выберите две подсказки"
+                  >
                     <Checkbox.Group options={aboutHintsOptions} onChange={(values) => {
-                      aboutHintsCheck(values);
+                      aboutHintsCheck(values,aboutHintsForm,setAboutHintsForm);
                       maxCheckboxCheck(values, aboutHintsOptions, 2);
                     }}/>
                   </Form.Item>
                   {aboutHintsForm.map((form) => {
-                   return <Form.Item key={form.name} name={form.name} label={form.label} rules={[{required: true}]}>
-                      <Input.TextArea/>
-                    </Form.Item>
+                    return (
+                      <Form.Item
+                        key={form.name}
+                        name={form.name}
+                        label={form.label}
+                        rules={[{ required: true }]}
+                      >
+                        <Input.TextArea />
+                      </Form.Item>
+                    );
+                  })}
+                  <Form.Item label="Может получится вспомнить что-нибудь еще?" name="something_else">
+                    <Input.TextArea/>
+                  </Form.Item>
+                  {detailOptions.map((form) => {
+                    return (
+                        <>
+                        <Form.Item rules={[{required: true}]} label={form.detailLabel} name={form.detailMainName}>
+                          <Input/>
+                        </Form.Item>
+                        <Form.Item rules={[{required: true}]} label="Поясните, почему она важна?" name={form.detailDescriptionName}>
+                          <Input.TextArea/>
+                        </Form.Item>
+                        </>
+                    )
                   })}
                   <Button onClick={handlePrev}>Назад</Button>
                   {isAuthButtonCheck()}
