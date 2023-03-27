@@ -16,6 +16,7 @@ interface IQuestFormProps {
   setAboutHintsForm?: Function;
   handleNext?: Function;
   handlePrev?: Function;
+  currentPage: string;
 }
 
 const QuestForm: FC<IQuestFormProps> = ({
@@ -27,6 +28,7 @@ const QuestForm: FC<IQuestFormProps> = ({
   setAboutHintsForm,
   handleNext,
   handlePrev,
+  currentPage
 }) => {
   const [form] = Form.useForm();
   const namesArr = formItems.map(item => item.name);
@@ -58,7 +60,6 @@ const QuestForm: FC<IQuestFormProps> = ({
                         aboutHintsForm,
                         setAboutHintsForm
                       );
-                      console.log(10);
                     }
                   }}
                   options={item.options}
@@ -122,13 +123,13 @@ const QuestForm: FC<IQuestFormProps> = ({
                 key={item.name}
                 label={item.label}
               >
-                <DatePicker placeholder={item.placeholder} />
+                <DatePicker placeholder={item.placeholder}/>
               </Form.Item>
             );
         }
       })}
       {children}
-      <NextFormButton handleNext={handleNext} namesArr={namesArr}/>
+      <NextFormButton currentPage={currentPage} handleNext={handleNext} namesArr={namesArr}/>
     </Form>
   );
 };

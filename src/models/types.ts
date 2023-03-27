@@ -1,3 +1,5 @@
+import { Dayjs } from "dayjs";
+
 export interface Types {
   albumId: number;
   id: number;
@@ -19,16 +21,38 @@ export interface IOrderFields {
   recipient_name: string;
   who_has_to: string;
   event: string;
-  date: string;
+  date: string | Dayjs;
   artist: string;
   genre: string[];
   vocal: string;
   mood: string[];
   temp: string;
   about: string;
+  about_hints:          string[];
+    how_meet?:             string;
+    what_hardships?:       string;
+    plans?:                string;
+    something_else?:       string;
+    memories_think_about?: string;
+    memories_without?:     string;
+    life_stages?:          string;
+    what_feelings?: string;
+    most_memorable_moment?:string;
+    what_want_to_know?: string;
+    which_places?: string;
+    which_moments?:string;
+    if_last_week?: string;
+    relationships_impact?: string;
+    life_without?: string;
+    which_opportunities?: string;
+    which_phrases?: string;
+    local_jokes?: string;
+    which_happenin?: string;
+    free_talk?: string;
 }
+
 export interface IOrder {
-  order: IOrder;
+  order: IOrderFields;
 }
 export interface IUserData {
   firstName: string;
@@ -58,3 +82,45 @@ export interface IRadioOption {
   value: string,
 }
 export type FormOptions = ICBOption[] | IRadioOption[]
+
+interface IFirstQuest {
+  name:           string;
+  recipient_name: string;
+  who_has_to:     string;
+  event:          string;
+  date:           string;
+}
+interface ISecondQuest {
+  artist:         string;
+    genre:          string[];
+    vocal:          string;
+    mood:           string[];
+    temp:           string;
+}
+
+interface IThirdQuest {
+  about:                string;
+    about_hints:          string[];
+    how_meet?:             string;
+    what_hardships?:       string;
+    plans?:                string;
+    something_else?:       string;
+    memories_think_about?: string;
+    memories_without?:     string;
+    life_stages?:          string;
+    what_feelings?: string;
+    most_memorable_moment?:string;
+    what_want_to_know?: string;
+    which_places?: string;
+    which_moments?:string;
+    if_last_week?: string;
+    relationships_impact?: string;
+    life_without?: string;
+    which_opportunities?: string;
+    which_phrases?: string;
+    local_jokes?: string;
+    which_happenin?: string;
+    free_talk?: string;
+}
+
+export type QuestValues = IFirstQuest | ISecondQuest | IThirdQuest

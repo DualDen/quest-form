@@ -1,17 +1,17 @@
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
-import {IOrder} from "../../models/types";
+import {IOrder,IOrderFields,QuestValues} from "../../models/types";
 
 
 
 const initialState: IOrder = {
-    order: {} as IOrder,
+    order: {} as IOrderFields,
 }
 
 export const orderSlice = createSlice({
     name: "order",
     initialState,
     reducers: {
-        setOrder: (state:IOrder,action:PayloadAction<IOrder>) => {
+        setOrder: (state:IOrder,action:PayloadAction<QuestValues>) => {
             state.order = {...state.order,...action.payload};
         }
     }

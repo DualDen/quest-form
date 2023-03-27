@@ -4,13 +4,11 @@ import {LockOutlined, UserOutlined} from "@ant-design/icons";
 
 interface IAuthProps {
     auth: Function,
-    handleToForm: MouseEventHandler,
     isAuthLoading: boolean,
 }
 
-const Auth:FC<IAuthProps> = ({auth,handleToForm,isAuthLoading}) => {
+const Auth:FC<IAuthProps> = ({auth,isAuthLoading}) => {
     return (
-        <div className="container">
             <Form name="normal_login" className="login-form" onFinish={(values) => auth(values)}>
                 <Form.Item
                     name="email"
@@ -50,11 +48,11 @@ const Auth:FC<IAuthProps> = ({auth,handleToForm,isAuthLoading}) => {
                     >
                         Войти
                     </Button>
+                    <div>
                     Или <a href="">Зарегистрируйтесь</a>
-                    <Button onClick={handleToForm}>Назад</Button>
+                    </div>
                 </Form.Item>
             </Form>
-        </div>
     );
 };
 
