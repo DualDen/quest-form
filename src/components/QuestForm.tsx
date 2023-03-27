@@ -5,6 +5,7 @@ import { maxCheckboxCheck } from "../utils/maxChecboxCheck";
 import { validateMessages } from "../utils/constants";
 import { aboutHintsCheck } from "../utils/aboutHintsCheck";
 import { useForm } from "antd/es/form/Form";
+import NextFormButton from "./NextFormButton";
 
 interface IQuestFormProps {
   name: string;
@@ -24,6 +25,8 @@ const QuestForm: FC<IQuestFormProps> = ({
   children,
   aboutHintsForm,
   setAboutHintsForm,
+  handleNext,
+  handlePrev,
 }) => {
   const [form] = Form.useForm();
   const namesArr = formItems.map(item => item.name);
@@ -125,7 +128,7 @@ const QuestForm: FC<IQuestFormProps> = ({
         }
       })}
       {children}
-      <Button htmlType="submit">Оформить</Button>
+      <NextFormButton handleNext={handleNext} namesArr={namesArr}/>
     </Form>
   );
 };

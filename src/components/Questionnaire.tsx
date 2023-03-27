@@ -20,7 +20,7 @@ import { IAboutHintsForm } from "../models/types";
 
 const Questionnaire = () => {
   const [firstTab, setFirstTab] = useState("1");
-  const [secondTab, setSecondTab] = useState("1");
+  const [questTab, setQuestTab] = useState("1");
   const [authTab, setAuthTab] = useState("1");
   const [aboutHintsForm, setAboutHintsForm] = useState<IAboutHintsForm[]>([]);
   const navigate = useNavigate();
@@ -44,10 +44,10 @@ const Questionnaire = () => {
     await register(values);
   };
   const handlePrev = (): void => {
-    setSecondTab((Number(secondTab) - 1).toString());
+    setQuestTab((Number(questTab) - 1).toString());
   };
   const handleNext = (): void => {
-    setSecondTab((Number(secondTab) + 1).toString());
+    setQuestTab((Number(questTab) + 1).toString());
   };
   const handleToAuth = (): void => {
     setFirstTab("2");
@@ -143,7 +143,7 @@ const Questionnaire = () => {
         {isAuthCheck()}
         <TabPane tab="tab1" key="1">
           <div className="container">
-            <Tabs activeKey={secondTab}>
+            <Tabs activeKey={questTab}>
               <TabPane tab="tab1" key="1">
                 <QuestForm
                   name="first-quest"
