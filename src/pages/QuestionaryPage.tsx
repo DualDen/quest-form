@@ -1,11 +1,11 @@
 import React from 'react';
-import QuestForm from "../components/QuestForm";
+import Questionnaire from "../components/Questionnaire";
 import {Button, Input} from "antd";
 
 const QuestionaryPage = () => {
     return (
         <div>
-            <QuestForm/>
+            <Questionnaire/>
         </div>
     );
 };

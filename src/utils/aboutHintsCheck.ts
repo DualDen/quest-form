@@ -2,8 +2,10 @@ import {CheckboxValueType} from "antd/es/checkbox/Group";
 import {IAboutHintsForm} from "../models/types";
 import {hobbies, how_shape, jokes, memories, other_stories, story, what_means} from "./constants";
 
-export const aboutHintsCheck = (values: CheckboxValueType[],state:IAboutHintsForm[],setState:Function) => {
+export const aboutHintsCheck = (values: CheckboxValueType[],state:IAboutHintsForm[] | undefined,setState:Function | undefined) => {
     const docListener = (e:any) => {
+        if(state != undefined && setState != undefined) {
+            console.log(25)
         if(e.target.className != "ant-checkbox-input") return;
         const {value} = e.target;
         if(value === "story" && values.includes("story")) {
@@ -55,6 +57,7 @@ export const aboutHintsCheck = (values: CheckboxValueType[],state:IAboutHintsFor
             const filteredHints = state.filter(item => !other_stories.includes(item));
             setState(filteredHints);
         }
+    }
     }
     document.addEventListener('click',docListener);
     setTimeout(() => {

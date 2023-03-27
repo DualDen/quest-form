@@ -37,11 +37,24 @@ export interface IUserData {
   password: string;
 }
 export interface IAboutHintsForm {
-  label: string,
-  name: string,
+  label: string;
+  name: string;
 }
 export interface IDetailOption {
-  detailLabel: string,
-  detailMainName: string,
-  detailDescriptionName: string,
+  detailLabel: string;
+  detailMainName: string;
+  detailDescriptionName: string;
 }
+export interface IFormItem {
+  label: string;
+  name: string;
+  type: "input" | "checkbox" | "radio" | "textarea" | "datepicker";
+  placeholder?: string;
+  options?: FormOptions;
+  required?: boolean;
+}
+export interface IRadioOption {
+  label: string,
+  value: string,
+}
+export type FormOptions = ICBOption[] | IRadioOption[]

@@ -41,3 +41,10 @@ body :where(.css-dev-only-do-not-override-ph9edi)[class^="ant-form"] [class*=" a
   display: block;
   text-align: left;
 }
+.formpage-error{
+  color: #ff4d4f;
+  margin-bottom: 20px;
+}
+.form-navigate-buttons{
+  display: flex;
+}
