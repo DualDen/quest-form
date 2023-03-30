@@ -1,24 +1,18 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import {IGenreOption, IUser} from "../../models/types";
+import {IAuthData, IGenreOption, IUser} from "../../models/types";
 import axios from "axios";
+import {useNavigate} from "react-router";
 
 const BASE_URL = "http://37.140.199.206/api"
 
-export const login = createAsyncThunk<IUser, IUser, { rejectValue: string }>(
+export const login = createAsyncThunk<IAuthData, {email:string,password:string}, { rejectValue: string }>(
   "auth/login",
   async ({ email, password }, thunkAPI) => {
     try {
-      const response = await axios.get<IUser[]>("./users.json");
-      const user = response.data?.find(
-        (user) => user.password === password && user.email === email
-      );
-      if (user) {
-        return user as IUser;
-      } else {
-        throw new Error("Ошибка при получении данные");
-      }
+     const response = await axios.post<IAuthData>(`${BASE_URL}/login`,{email: email,password: password});
+     return response.data;
     } catch (e: any) {
-      return thunkAPI.rejectWithValue("Error");
+      return thunkAPI.rejectWithValue("Неправильная почта или пароль");
     }
   }
 );

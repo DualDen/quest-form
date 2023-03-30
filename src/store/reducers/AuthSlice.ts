@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { IUser } from "../../models/types";
+import { IAuthData, IUser } from "../../models/types";
 import { login } from "./ActionCreators";
 
 interface IAuthState {
@@ -7,12 +7,14 @@ interface IAuthState {
   user: IUser;
   isAuthLoading: boolean;
   authError: string | null;
+  token: string;
 }
 const initialState: IAuthState = {
   isAuth: JSON.parse(localStorage.getItem("auth")!) || false,
   user: {} as IUser,
   isAuthLoading: false,
   authError: null,
+  token: "",
 };
 
 export const authSlice = createSlice({
@@ -25,8 +27,10 @@ export const authSlice = createSlice({
     });
     builder.addCase(
       login.fulfilled,
-      (state: IAuthState, action: PayloadAction<IUser>) => {
-        state.user = action.payload;
+      (state: IAuthState, action: PayloadAction<IAuthData>) => {
+        const { token, user } = action.payload;
+        state.user = user;
+        state.token = token;
         state.isAuth = true;
         localStorage.setItem("auth", "true");
         state.isAuthLoading = false;

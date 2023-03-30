@@ -9,12 +9,23 @@ export interface Types {
 }
 export interface ICBOption extends IRadioOption {
   disabled?: boolean;
-  id?: number,
+  id?: number;
 }
 export interface IUser {
   email: string;
-  password: string;
+  email_verified_at: string | null;
+  firstName: string;
+  lastName: string;
+  id: number;
+  photo: string | null;
+  role_id: number | null;
 }
+
+export interface IAuthData {
+  token: string,
+  user: IUser,
+}
+
 export interface IOrderFields {
   name: string;
   recipient_name: string;
