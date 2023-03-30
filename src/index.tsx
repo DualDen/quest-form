@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
+import './styles/index.css';
+import "./styles/Antd.css"
 import {Provider} from "react-redux";
 import {setupStore} from "./store/store";
 import { RouterProvider } from 'react-router-dom';

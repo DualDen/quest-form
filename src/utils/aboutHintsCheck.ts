@@ -1,65 +1,70 @@
-import {CheckboxValueType} from "antd/es/checkbox/Group";
-import {IAboutHintsForm} from "../models/types";
-import {hobbies, how_shape, jokes, memories, other_stories, story, what_means} from "./constants";
+import { CheckboxValueType } from "antd/es/checkbox/Group";
+import {FormOptions, IAboutHintsForm, IQuestion} from "../models/types";
 
-export const aboutHintsCheck = (values: CheckboxValueType[],state:IAboutHintsForm[] | undefined,setState:Function | undefined) => {
-    const docListener = (e:any) => {
-        if(state != undefined && setState != undefined) {
-        if(e.target.className != "ant-checkbox-input") return;
-        const {value} = e.target;
-        if(value === "story" && values.includes("story")) {
-            setState([...state,...story]);
-        }
-        else if(value === "story" && !values.includes("story")) {
-            const filteredHints = state.filter(item => !story.includes(item));
-            setState(filteredHints);
-        }
-        if(value === "memories" && values.includes("memories")) {
-            setState([...state,...memories]);
-        }
-        else if(value === "memories" && !values.includes("memories")) {
-            const filteredHints = state.filter(item => !memories.includes(item));
-            setState(filteredHints);
-        }
-        if(value === "what_means" && values.includes('what_means')) {
-            setState([...state,...what_means]);
-        }
-        else if(value === "what_means" && !values.includes('what_means')) {
-            const filteredHints = state.filter(item => !what_means.includes(item));
-            setState(filteredHints);
-        }
-        if(value === "hobbies" && values.includes('hobbies')) {
-            setState([...state,...hobbies]);
-        }
-        else if(value === "hobbies" && !values.includes('hobbies')) {
-            const filteredHints = state.filter(item => !hobbies.includes(item));
-            setState(filteredHints);
-        }
-        if(value === "how_shape" && values.includes('how_shape')) {
-            setState([...state,...how_shape]);
-        }
-        else if(value === "how_shape" && !values.includes('how_shape')) {
-            const filteredHints = state.filter(item => !how_shape.includes(item));
-            setState(filteredHints);
-        }
-        if(value === "jokes" && values.includes('jokes')) {
-            setState([...state,...jokes]);
-        }
-        else if(value === "jokes" && !values.includes('jokes')) {
-            const filteredHints = state.filter(item => !jokes.includes(item));
-            setState(filteredHints);
-        }
-        if(value === "other_stories" && values.includes('other_stories')) {
-            setState([...state,...other_stories]);
-        }
-        else if(value === "other_stories" && !values.includes('other_stories')) {
-            const filteredHints = state.filter(item => !other_stories.includes(item));
-            setState(filteredHints);
-        }
+
+export const aboutHintsCheck = (
+  values: CheckboxValueType[],
+  state: IQuestion[] | undefined,
+  setState: Function | undefined,
+  options: any
+) => {
+  const docListener = (e: any) => {
+    if (state != undefined && setState != undefined) {
+      if (e.target.className != "ant-checkbox-input") return;
+      const { value } = e.target;
+      if (value === "1" && values.includes(1)) {
+        setState([...state, ...options[0].questions]);
+      } else if (value === "1" && !values.includes(1)) {
+        const filteredHints = state.filter((item) => !options[0].questions.includes(item));
+        setState(filteredHints);
+      }
+      if (value === "2" && values.includes(2)) {
+        setState([...state, ...options[1].questions]);
+      } else if (value === "2" && !values.includes(2)) {
+        const filteredHints = state.filter((item) => !options["1"].questions.includes(item));
+        setState(filteredHints);
+      }
+      if (value === "3" && values.includes(3)) {
+        setState([...state, ...options[2].questions]);
+      } else if (value === "3" && !values.includes(3)) {
+        const filteredHints = state.filter(
+          (item) => !options[2].questions.includes(item)
+        );
+        setState(filteredHints);
+      }
+      if (value === "4" && values.includes(4)) {
+        setState([...state, ...options[3].questions]);
+      } else if (value === "4" && !values.includes(4)) {
+        const filteredHints = state.filter((item) => !options[3].questions.includes(item));
+        setState(filteredHints);
+      }
+      if (value === "5" && values.includes(5)) {
+        setState([...state, ...options[4].questions]);
+      } else if (value === "5" && !values.includes(5)) {
+        const filteredHints = state.filter((item) => !options[4].questions.includes(item));
+        setState(filteredHints);
+      }
+      if (value === "6" && values.includes(6)) {
+        setState([...state, ...options[5].questions]);
+      } else if (value === "6" && !values.includes(6)) {
+        const filteredHints = state.filter((item) => !options[5].questions.includes(item));
+        setState(filteredHints);
+      }
+      if (value === "7" && values.includes(7)) {
+        setState([...state, ...options[6].questions]);
+      } else if (
+        value === "7" &&
+        !values.includes(7)
+      ) {
+        const filteredHints = state.filter(
+          (item) => !options[6].questions.includes(item)
+        );
+        setState(filteredHints);
+      }
     }
-    }
-    document.addEventListener('click',docListener);
-    setTimeout(() => {
-        document.removeEventListener('click',docListener,false);
-    },0)
+  };
+  document.addEventListener("click", docListener);
+  setTimeout(() => {
+    document.removeEventListener("click", docListener, false);
+  }, 0);
 };

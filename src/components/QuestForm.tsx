@@ -1,21 +1,23 @@
 import React, { FC } from "react";
-import { Button, Checkbox, DatePicker, Form, Input, Radio } from "antd";
-import { IAboutHintsForm, IFormItem } from "../models/types";
+import { Checkbox, DatePicker, Form, Input, Radio } from "antd";
+import { IAboutHintsForm, IFormItem, IQuestion } from "../models/types";
 import { maxCheckboxCheck } from "../utils/maxChecboxCheck";
 import { validateMessages } from "../utils/constants";
-import { aboutHintsCheck } from "../utils/aboutHintsCheck";
-import { useForm } from "antd/es/form/Form";
 import NextFormButton from "./NextFormButton";
+import { initialValues } from "../utils/formInitialValues";
+import { useAppDispatch } from "../hooks/hooks";
+import { maxAsyncCheckbox } from "../store/reducers/QuestOptionsSlice";
+import { aboutHintsCheck } from "../utils/aboutHintsCheck";
+import dayjs from "dayjs";
 
 interface IQuestFormProps {
   name: string;
   onFinish: Function;
   formItems: IFormItem[];
   children?: React.ReactNode;
-  aboutHintsForm?: IAboutHintsForm[];
+  aboutHintsForm?: IQuestion[];
   setAboutHintsForm?: Function;
   handleNext?: Function;
-  handlePrev?: Function;
   currentPage: string;
 }
 
@@ -27,17 +29,17 @@ const QuestForm: FC<IQuestFormProps> = ({
   aboutHintsForm,
   setAboutHintsForm,
   handleNext,
-  handlePrev,
-  currentPage
+  currentPage,
 }) => {
   const [form] = Form.useForm();
-  const namesArr = formItems.map(item => item.name);
+  const dispatch = useAppDispatch();
   return (
     <Form
+      initialValues={initialValues(name)}
       form={form}
       name={name}
       onFinish={(values) => {
-        onFinish(values);
+        onFinish(values, name);
       }}
       validateMessages={validateMessages}
     >
@@ -53,13 +55,35 @@ const QuestForm: FC<IQuestFormProps> = ({
               >
                 <Checkbox.Group
                   onChange={(values) => {
-                    maxCheckboxCheck(values, item.options, 2);
-                    if (item.name === "about_hints") {
-                      aboutHintsCheck(
-                        values,
-                        aboutHintsForm,
-                        setAboutHintsForm
-                      );
+                    switch (item.name) {
+                      case "genre":
+                        dispatch(
+                          maxAsyncCheckbox({
+                            values: values,
+                            options: item.options,
+                            maxLength: 2,
+                            name: "genreOptions",
+                          })
+                        );
+                        break;
+                      case "theme":
+                        aboutHintsCheck(
+                          values,
+                          aboutHintsForm,
+                          setAboutHintsForm,
+                          item.options
+                        );
+                        dispatch(
+                          maxAsyncCheckbox({
+                            values: values,
+                            options: item.options,
+                            maxLength: 2,
+                            name: "themeOptions",
+                          })
+                        );
+                        break;
+                      default:
+                        maxCheckboxCheck(values, item.options, 2);
                     }
                   }}
                   options={item.options}
@@ -107,12 +131,13 @@ const QuestForm: FC<IQuestFormProps> = ({
                   {
                     validator(rule, value) {
                       return new Promise((resolve, reject) => {
-                        if (
-                          value?.format("DD.MM.YYYY") <
-                          new Date().toLocaleDateString()
-                        ) {
+                      if(value < dayjs(new Date())) {
                           reject("Нельзя выбрать прошедшую дату!");
-                        } else {
+                        }
+                      else if (value < dayjs(new Date()).clone().add(2, "days")) {
+                          reject("Дедлайн не может быть меньше двух дней!");
+                        }
+                        else {
                           resolve(value);
                         }
                       });
@@ -123,13 +148,16 @@ const QuestForm: FC<IQuestFormProps> = ({
                 key={item.name}
                 label={item.label}
               >
-                <DatePicker placeholder={item.placeholder}/>
+                <DatePicker placeholder={item.placeholder} />
               </Form.Item>
             );
         }
       })}
       {children}
-      <NextFormButton currentPage={currentPage} handleNext={handleNext} namesArr={namesArr}/>
+      <NextFormButton
+        currentPage={currentPage}
+        handleNext={handleNext}
+      />
     </Form>
   );
 };

@@ -3,12 +3,14 @@ import { storeApi } from "../api/StoreApi";
 import authSlice from "./reducers/AuthSlice";
 import orderSlice from "./reducers/OrderSlice";
 import { registerApi } from "../api/RegisterApi";
+import questOptionsSlice from "./reducers/QuestOptionsSlice";
 
 const rootReducer = combineReducers({
   [storeApi.reducerPath]: storeApi.reducer,
   [registerApi.reducerPath]: registerApi.reducer,
   authSlice,
   orderSlice,
+  questOptionsSlice,
 });
 
 export const setupStore = () => {

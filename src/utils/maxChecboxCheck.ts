@@ -1,9 +1,9 @@
-import { ICBOption } from "../models/types";
+import {FormOptions, ICBOption} from "../models/types";
 import { CheckboxValueType } from "antd/es/checkbox/Group";
 
 export const maxCheckboxCheck = (
   values: CheckboxValueType[],
-  options: ICBOption[] | undefined,
+  options: FormOptions | undefined,
   maxLength: number
 ) => {
   const length = values.length;

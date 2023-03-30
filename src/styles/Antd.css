@@ -1,0 +1,61 @@
+div#nest-messages_genre,
+div#nest-messages_mood {
+  display: block;
+}
+div#nest-messages_about_hints {
+  display: flex;
+  flex-direction: column;
+}
+body
+  :where(.css-dev-only-do-not-override-1rmi8jv)[class^="ant-form"]
+  [class*=" ant-form"],
+body
+  :where(.css-dev-only-do-not-override-1rmi8jv)[class*=" ant-form"]
+  [class*=" ant-form"] {
+  display: block;
+  text-align: left;
+}
+body
+  :where(.css-dev-only-do-not-override-1rmi8jv).ant-picker-dropdown
+  .ant-picker-today-btn {
+  color: rgba(255, 107, 47, 1);
+}
+body :where(.css-dev-only-do-not-override-1rmi8jv).ant-checkbox-group {
+  display: block;
+}
+body
+  :where(.css-dev-only-do-not-override-1rmi8jv).ant-checkbox-wrapper
+  + .ant-checkbox-wrapper {
+  margin-inline-start: 0;
+}
+.ant-tabs-tab[data-node-key="1"]:before,
+.ant-tabs-tab[data-node-key="2"]:before,
+.ant-tabs-tab[data-node-key="3"]:before,
+.ant-tabs-tab[data-node-key="4"]:before {
+  padding: 4px 12px;
+  border-radius: 50%;
+  background: #fff;
+  color: rgba(0, 0, 0, 0.25);
+  border: 1px solid rgba(0, 0, 0, 0.25);
+  margin-right: 8px;
+}
+.ant-tabs-tab.ant-tabs-tab-active[data-node-key="1"]:before,
+.ant-tabs-tab.ant-tabs-tab-active[data-node-key="2"]:before,
+.ant-tabs-tab.ant-tabs-tab-active[data-node-key="3"]:before,
+.ant-tabs-tab.ant-tabs-tab-active[data-node-key="4"]:before {
+  background: rgba(255, 107, 47, 1);
+  color: #fff;
+  border: 0;
+}
+.ant-tabs-tab[data-node-key="1"]:before {
+  content: "1";
+}
+.ant-tabs-tab[data-node-key="2"]:before {
+  content: "2";
+}
+.ant-tabs-tab[data-node-key="3"]:before {
+  content: "3";
+}
+.ant-tabs-tab[data-node-key="4"]:before {
+  content: "4";
+}

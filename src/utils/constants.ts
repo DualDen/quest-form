@@ -2,8 +2,8 @@ import {
   IAboutHintsForm,
   ICBOption,
   IDetailOption,
-  IFormItem,
-  IRadioOption,
+  IFormItem, IGenreOption,
+  IRadioOption, IThemeOption,
 } from "../models/types";
 
 export const memories: IAboutHintsForm[] = [
@@ -224,7 +224,7 @@ export const validateMessages = {
   required: "Это обязательное поле!",
 };
 
-export const firstQuestItems: IFormItem[] = [
+export const firstQuestItems = (): IFormItem[] => ([
   { label: "Как вас зовут?", name: "name", type: "input", required: true },
   {
     label: "Как зовут получателя подарка?",
@@ -250,8 +250,8 @@ export const firstQuestItems: IFormItem[] = [
     type: "datepicker",
     placeholder: "Выберите дату",
   },
-];
-export const secondQuestItems: IFormItem[] = [
+]);
+export const secondQuestItems = (genreOption:any): IFormItem[] => ([
   {
     label: "Выбор артиста",
     name: "artist",
@@ -263,7 +263,7 @@ export const secondQuestItems: IFormItem[] = [
     label: "Какой жанр вы предпочитаете?",
     name: "genre",
     type: "checkbox",
-    options: genreOptions,
+    options: genreOption,
     required: true,
   },
   {
@@ -287,8 +287,8 @@ export const secondQuestItems: IFormItem[] = [
     options: tempOptions,
     required: true,
   },
-];
-export const thirdQuestItems: IFormItem[] = [
+]);
+export const thirdQuestItems = (themeOption:any): IFormItem[] =>  ([
   {label: "О ком эта песня? Подробно опишите получателя", name: "about", type: "textarea", required: true},
-  {label: "О чем вы хотите рассказать?", name: "about_hints", type: "checkbox",options: aboutHintsOptions, required: true},
-]
+  {label: "О чем вы хотите рассказать?", name: "theme", type: "checkbox",options: themeOption, required: true},
+]);

@@ -1,11 +1,13 @@
-import React from 'react';
-import { Outlet } from 'react-router-dom';
-
+import React from "react";
+import { Outlet } from "react-router-dom";
+import AntdConfig from "./utils/AntdStylesConfig";
 
 function App() {
   return (
     <div className="App">
-      <Outlet/>
+        <AntdConfig>
+        <Outlet />
+        </AntdConfig>
     </div>
   );
 }

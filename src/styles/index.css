@@ -1,0 +1,40 @@
+body {
+  margin: 0;
+  font-family: "Montserrat", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background: #FEEDE4;
+}
+.container{
+  margin: 0 auto;
+  max-width: 920px;
+  padding: 24px 60px;
+  border-radius: 30px;
+  background: #fff;
+}
+/*body :where(.css-dev-only-do-not-override-ph9edi).ant-tabs >.ant-tabs-nav{*/
+/*  display: none;*/
+/*}*/
+
+.formpage-error{
+  color: #ff4d4f;
+  margin-bottom: 20px;
+}
+.container h3{
+  font-size: 32px;
+  text-align: center;
+}
+.form-navigate-buttons{
+  display: flex;
+}
+.quest-title,.quest-desc{
+  margin-bottom: 25px;
+}
+.quest-title{
+  font-size: 18px;
+  font-weight: 700;
+}
+.quest-desc{
+  font-size: 14px;
+  font-weight: 600;
+}
