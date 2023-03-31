@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { IAuthData, IUser } from "../../models/types";
-import {login} from "./ActionCreators";
+import { login } from "./ActionCreators";
 
 interface IAuthState {
   isAuth: boolean | string;
@@ -20,7 +20,15 @@ const initialState: IAuthState = {
 export const authSlice = createSlice({
   name: "auth",
   initialState,
-  reducers: {},
+  reducers: {
+    auth: (state, action: PayloadAction<IAuthData>) => {
+      const { token, user } = action.payload;
+      state.user = user;
+      state.token = token;
+      state.isAuth = true;
+      localStorage.setItem("auth", "true");
+    },
+  },
   extraReducers: (builder) => {
     builder.addCase(login.pending, (state) => {
       state.isAuthLoading = true;
@@ -47,3 +55,4 @@ export const authSlice = createSlice({
 });
 
 export default authSlice.reducer;
+export const { auth } = authSlice.actions;

@@ -9,7 +9,10 @@ export const orderSlice = createSlice({
   name: "order",
   initialState,
   reducers: {
-    setOrder: (state: IOrder, action: PayloadAction<QuestValues | {[k:string]:unknown}>) => {
+    setOrder: (
+      state: IOrder,
+      action: PayloadAction<QuestValues | { [k: string]: unknown }>
+    ) => {
       state.order = { ...state.order, ...action.payload };
     },
   },

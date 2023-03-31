@@ -1,26 +1,34 @@
 import React, { FC } from "react";
 import { Form, Input, Button } from "antd";
 import { useRegisterMutation } from "../api/RegisterApi";
+import { useAppDispatch } from "../hooks/hooks";
+import { useNavigate } from "react-router";
+import { auth } from "../store/reducers/AuthSlice";
 
 export const Register: FC = () => {
+  const navigate = useNavigate();
   const [register] = useRegisterMutation();
+  const dispatch = useAppDispatch();
   const registration = async (values: any) => {
     delete values.confirm;
-    console.log(values);
-    await register(values);
+    await register(values).then((response) => {
+      const { data }: any = response;
+      dispatch(auth(data));
+    });
+    navigate("/order");
   };
   return (
     <Form name="normal_register" className="login-form" onFinish={registration}>
       <Form.Item
         label="Имя"
-        name="firstName"
+        name="first_name"
         rules={[{ required: true, message: "Пожалуйста, введите имя" }]}
       >
         <Input placeholder="Имя" />
       </Form.Item>
       <Form.Item
         label="Фамилия"
-        name="lastName"
+        name="last_name"
         rules={[{ required: true, message: "Пожалуйста, введите фамилию" }]}
       >
         <Input placeholder="Фамилия" />

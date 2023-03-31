@@ -8,10 +8,13 @@ export const registerApi = createApi({
   }),
   refetchOnFocus: true,
   endpoints: (build) => ({
-    register: build.mutation<any, IUserData>({
+    register: build.mutation<any, any>({
       query: userData => ({
         url: "/register",
         method: "POST",
+        headers: {
+          accept: "application/json"
+        },
         body: userData,
       }),
     }),

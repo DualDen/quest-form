@@ -1,4 +1,4 @@
-import React, {FC, useEffect, useState} from "react";
+import React, { FC, useEffect, useState } from "react";
 import { Input, Form, Tabs } from "antd";
 import TabPane from "antd/es/tabs/TabPane";
 import { useAppDispatch, useAppSelector } from "../hooks/hooks";
@@ -11,7 +11,7 @@ import {
   secondQuestItems,
   thirdQuestItems,
 } from "../utils/constants";
-import { IAboutHintsForm, IQuestion } from "../models/types";
+import { IQuestion } from "../models/types";
 import { Register } from "./Register";
 import {
   getGenre,
@@ -19,7 +19,7 @@ import {
   getTheme,
 } from "../store/reducers/ActionCreators";
 
-const Questionnaire:FC = () => {
+const Questionnaire: FC = () => {
   const storageAboutHintsForm =
     JSON.parse(localStorage.getItem("aboutHintsForm")!) || [];
   const [questTab, setQuestTab] = useState("1");
@@ -31,7 +31,6 @@ const Questionnaire:FC = () => {
   const { genreOptions, themeOptions, productOptions } = useAppSelector(
     (state) => state.questOptionsSlice
   );
-  const { order } = useAppSelector((state) => state.orderSlice);
   useEffect(() => {
     dispatch(getGenre());
     dispatch(getTheme());
@@ -156,7 +155,9 @@ const Questionnaire:FC = () => {
             <div className="quest-desc">
               В этом разделе предоставляется возможность выбрать услуги.
             </div>
-            <div className="you-can-choose-products">Вы можете выбрать следующие услуги:</div>
+            <div className="you-can-choose-products">
+              Вы можете выбрать следующие услуги:
+            </div>
             <QuestForm
               name="product-quest"
               onFinish={onFinish}
