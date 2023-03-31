@@ -28,10 +28,73 @@ body
   + .ant-checkbox-wrapper {
   margin-inline-start: 0;
 }
+body :where(.css-dev-only-do-not-override-1rmi8jv).ant-checkbox-wrapper{
+  display: flex;
+}
+body span.ant-input-affix-wrapper.ant-input-password.css-dev-only-do-not-override-1rmi8jv {
+  padding: 0 11px;
+  border-radius: 0;
+}
+body :where(.css-dev-only-do-not-override-1rmi8jv).ant-tabs:not(.auth-tabs) >.ant-tabs-nav .ant-tabs-nav-list{
+  width: 100%;
+  justify-content: space-between;
+}
+body :where(.css-dev-only-do-not-override-1ku560p).ant-tabs .ant-tabs-tab-btn:focus:not(:focus-visible){
+  color: rgba(255, 107, 47, 1);
+}
+body :where(.css-dev-only-do-not-override-1rmi8jv).ant-btn-default, body :where(.css-dev-only-do-not-override-1rmi8jv).ant-btn{
+  background: rgba(255, 107, 47, 1);
+  color: #fff;
+  font-weight: 600;
+  font-size: 18px;
+  padding: 12px 16px;
+  height: 46px;
+  display: flex;
+  align-items: center;
+  border-radius: 16px;
+  margin-left: auto;
+}
+body :where(.css-dev-only-do-not-override-1rmi8jv).ant-btn-default:not(:disabled):hover{
+  color: #fff;
+ }
+body :where(.css-dev-only-do-not-override-1rmi8jv).ant-form-item .ant-form-item-label >label{
+  font-weight: 500;
+  color: #000;
+}
+body :where(.css-dev-only-do-not-override-1rmi8jv).ant-form-item .ant-form-item-label >label::after{
+  display: none;
+}
+body :where(.css-dev-only-do-not-override-1rmi8jv).ant-form-item .ant-form-item-label >label.ant-form-item-required::after{
+  display: inline-block;
+  margin-inline-end: 4px;
+  color: #ff4d4f;
+  font-size: 14px;
+  font-family: SimSun,sans-serif;
+  line-height: 1;
+  content: "*";
+}
+body :where(.css-dev-only-do-not-override-1rmi8jv).ant-form-item .ant-form-item-label >label.ant-form-item-required:not(.ant-form-item-required-mark-optional)::before{
+  display: none;
+}
+body :where(.css-dev-only-do-not-override-1rmi8jv).ant-input{
+  border-radius: 0;
+  height: 36px;
+}
+body span.ant-input-affix-wrapper.css-dev-only-do-not-override-1rmi8jv{
+  border-radius: 0;
+  padding: 0 11px;
+}
+.auth-tabs .ant-tabs-nav{
+  max-width: 225px;
+}
+:where(.css-dev-only-do-not-override-1rmi8jv).ant-picker{
+  width: 100%;
+}
 .ant-tabs-tab[data-node-key="1"]:before,
 .ant-tabs-tab[data-node-key="2"]:before,
 .ant-tabs-tab[data-node-key="3"]:before,
-.ant-tabs-tab[data-node-key="4"]:before {
+.ant-tabs-tab[data-node-key="4"]:before,
+.ant-tabs-tab[data-node-key="5"]:before{
   padding: 4px 12px;
   border-radius: 50%;
   background: #fff;
@@ -42,7 +105,8 @@ body
 .ant-tabs-tab.ant-tabs-tab-active[data-node-key="1"]:before,
 .ant-tabs-tab.ant-tabs-tab-active[data-node-key="2"]:before,
 .ant-tabs-tab.ant-tabs-tab-active[data-node-key="3"]:before,
-.ant-tabs-tab.ant-tabs-tab-active[data-node-key="4"]:before {
+.ant-tabs-tab.ant-tabs-tab-active[data-node-key="4"]:before,
+.ant-tabs-tab.ant-tabs-tab-active[data-node-key="5"]:before{
   background: rgba(255, 107, 47, 1);
   color: #fff;
   border: 0;
@@ -58,4 +122,7 @@ body
 }
 .ant-tabs-tab[data-node-key="4"]:before {
   content: "4";
+}
+.ant-tabs-tab[data-node-key="5"]:before {
+  content: "5";
 }

@@ -8,7 +8,9 @@ import { useAppDispatch, useAppSelector } from "../hooks/hooks";
 const Auth: FC = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const { isAuth,authError } = useAppSelector((state) => state.authSlice);
+  const { isAuthLoading, authError } = useAppSelector(
+    (state) => state.authSlice
+  );
   const auth = async (values: any) => {
     await dispatch(
       login({ email: values.email, password: values.password })
@@ -20,9 +22,11 @@ const Auth: FC = () => {
   return (
     <Form name="normal_login" className="login-form" onFinish={auth}>
       <Form.Item
+        label="Электронная почта"
         name="email"
         rules={[
           { required: true, message: "Пожалуйста, введите электронную почту" },
+          { type: "email", message: "Некорректная электронная почта" },
         ]}
       >
         <Input
@@ -31,10 +35,11 @@ const Auth: FC = () => {
         />
       </Form.Item>
       <Form.Item
+        label="Пароль"
         name="password"
         rules={[{ required: true, message: "Пожалуйста, введите пароль" }]}
       >
-        <Input
+        <Input.Password
           prefix={<LockOutlined className="site-form-item-icon" />}
           type="password"
           placeholder="Пароль"
@@ -43,7 +48,12 @@ const Auth: FC = () => {
       {authError && <div className="auth-error">{authError}</div>}
 
       <Form.Item>
-        <Button type="primary" htmlType="submit" className="login-form-button">
+        <Button
+          loading={isAuthLoading}
+          type="primary"
+          htmlType="submit"
+          className="login-form-button"
+        >
           Войти
         </Button>
       </Form.Item>

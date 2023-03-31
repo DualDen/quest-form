@@ -17,7 +17,7 @@ interface IQuestFormProps {
   children?: React.ReactNode;
   aboutHintsForm?: IQuestion[];
   setAboutHintsForm?: Function;
-  handleNext?: Function;
+  handleNext: Function;
   currentPage: string;
 }
 
@@ -82,8 +82,6 @@ const QuestForm: FC<IQuestFormProps> = ({
                           })
                         );
                         break;
-                      default:
-                        maxCheckboxCheck(values, item.options, 2);
                     }
                   }}
                   options={item.options}

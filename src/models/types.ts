@@ -22,8 +22,8 @@ export interface IUser {
 }
 
 export interface IAuthData {
-  token: string,
-  user: IUser,
+  token: string;
+  user: IUser;
 }
 
 export interface IOrderFields {
@@ -158,4 +158,12 @@ export interface IQuestion {
   label?: string;
   value?: number;
   theme_id: number;
+}
+export interface IProductOption {
+  id: number;
+  name: string;
+  description: string;
+  price: number;
+  label?: string;
+  value?: number;
 }

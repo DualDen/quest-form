@@ -13,7 +13,7 @@ const AntdConfig:FC<IAntdConfigProps> = ({children}) => {
     const mainColor = 'rgba(255, 107, 47, 1)';
     const colors = {
         colorPrimary: mainColor,
-        colorPrimaryHover: mainColor
+        colorPrimaryHover: mainColor,
     }
     return (
         <ConfigProvider locale={ru_RU} theme={{

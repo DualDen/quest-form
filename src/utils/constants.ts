@@ -2,8 +2,11 @@ import {
   IAboutHintsForm,
   ICBOption,
   IDetailOption,
-  IFormItem, IGenreOption,
-  IRadioOption, IThemeOption,
+  IFormItem,
+  IGenreOption,
+  IProductOption,
+  IRadioOption,
+  IThemeOption,
 } from "../models/types";
 
 export const memories: IAboutHintsForm[] = [
@@ -224,8 +227,13 @@ export const validateMessages = {
   required: "Это обязательное поле!",
 };
 
-export const firstQuestItems = (): IFormItem[] => ([
-  { label: "Как вас зовут?", name: "name", type: "input", required: true },
+export const firstQuestItems = (): IFormItem[] => [
+  {
+    label: "Как вас зовут?",
+    name: "client_name",
+    type: "input",
+    required: true,
+  },
   {
     label: "Как зовут получателя подарка?",
     name: "recipient_name",
@@ -234,7 +242,7 @@ export const firstQuestItems = (): IFormItem[] => ([
   },
   {
     label: "Кем вам приходится получатель?",
-    name: "who_has_to",
+    name: "relationships_with_recipient",
     type: "input",
     required: true,
   },
@@ -246,12 +254,12 @@ export const firstQuestItems = (): IFormItem[] => ([
   },
   {
     label: "К какой дате необходима песня?",
-    name: "date",
+    name: "deadline",
     type: "datepicker",
     placeholder: "Выберите дату",
   },
-]);
-export const secondQuestItems = (genreOption:any): IFormItem[] => ([
+];
+export const secondQuestItems = (genreOption: IGenreOption[]): IFormItem[] => [
   {
     label: "Выбор артиста",
     name: "artist",
@@ -276,19 +284,35 @@ export const secondQuestItems = (genreOption:any): IFormItem[] => ([
   {
     label: "Какой по настроению должна получиться песня?",
     name: "mood",
-    type: "checkbox",
+    type: "radio",
     options: moodOptions,
     required: true,
   },
   {
     label: "Выберите темп",
-    name: "temp",
+    name: "tempo",
     type: "radio",
     options: tempOptions,
     required: true,
   },
-]);
-export const thirdQuestItems = (themeOption:any): IFormItem[] =>  ([
-  {label: "О ком эта песня? Подробно опишите получателя", name: "about", type: "textarea", required: true},
-  {label: "О чем вы хотите рассказать?", name: "theme", type: "checkbox",options: themeOption, required: true},
-]);
+];
+export const thirdQuestItems = (themeOption: IThemeOption[]): IFormItem[] => [
+  {
+    label: "О ком эта песня? Подробно опишите получателя",
+    name: "about",
+    type: "textarea",
+    required: true,
+  },
+  {
+    label: "О чем вы хотите рассказать?",
+    name: "theme",
+    type: "checkbox",
+    options: themeOption,
+    required: true,
+  },
+];
+export const productQuestItems = (
+  productOption: IProductOption[]
+): IFormItem[] => [
+  { label: "", name: "product", type: "checkbox", options: productOption },
+];

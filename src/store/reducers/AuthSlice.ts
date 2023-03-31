@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { IAuthData, IUser } from "../../models/types";
-import { login } from "./ActionCreators";
+import {login} from "./ActionCreators";
 
 interface IAuthState {
   isAuth: boolean | string;

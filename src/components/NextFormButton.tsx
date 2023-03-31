@@ -1,10 +1,10 @@
-import React, { FC } from "react";
+import React, {FC, MouseEventHandler} from "react";
 import { Button, Form } from "antd";
 import { useAppSelector } from "../hooks/hooks";
 import { useNavigate } from "react-router";
 
 interface INextBtnProps {
-  handleNext: Function | undefined;
+  handleNext: Function;
   currentPage: string;
 }
 
@@ -15,6 +15,7 @@ const NextFormButton: FC<INextBtnProps> = ({
   const form = Form.useFormInstance();
   const navigate = useNavigate();
   const { isAuth } = useAppSelector((state) => state.authSlice);
+  const next = () => {handleNext()};
   const errorsCheck = () => {
     let errors:string[] = [];
     form.getFieldsError().forEach(item => {
@@ -24,15 +25,15 @@ const NextFormButton: FC<INextBtnProps> = ({
     });
     if (Object.values(form.getFieldsValue()).indexOf(undefined) != -1 || errors.length)
       return;
-    else if (handleNext) {
-      handleNext();
+    else {
+      handleNext()
     }
   };
   const buttonCheck = () => {
-    if (currentPage === "3") {
+    if (currentPage === "4") {
       if(!isAuth) {
       return (
-        <Button htmlType="submit" onClick={errorsCheck}>
+        <Button htmlType="submit" onClick={next}>
           Оформить заказ
         </Button>
       );
@@ -47,7 +48,7 @@ const NextFormButton: FC<INextBtnProps> = ({
     } else {
       return (
         <Button htmlType="submit" onClick={errorsCheck}>
-          Далее
+          Продолжить
         </Button>
       );
     }
