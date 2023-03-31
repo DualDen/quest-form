@@ -1,5 +1,5 @@
 import { CheckboxValueType } from "antd/es/checkbox/Group";
-import {FormOptions, IAboutHintsForm, IQuestion} from "../models/types";
+import {IQuestion} from "../models/types";
 
 
 export const aboutHintsCheck = (
@@ -9,8 +9,8 @@ export const aboutHintsCheck = (
   options: any
 ) => {
   const docListener = (e: any) => {
-    if (state != undefined && setState != undefined) {
-      if (e.target.className != "ant-checkbox-input") return;
+    if (state !== undefined && setState !== undefined) {
+      if (e.target.className !== "ant-checkbox-input") return;
       const { value } = e.target;
       if (value === "1" && values.includes(1)) {
         setState([...state, ...options[0].questions]);
