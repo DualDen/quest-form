@@ -1,7 +1,6 @@
 import React, { FC } from "react";
 import { Checkbox, DatePicker, Form, Input, Radio } from "antd";
-import { IAboutHintsForm, IFormItem, IQuestion } from "../models/types";
-import { maxCheckboxCheck } from "../utils/maxChecboxCheck";
+import { IFormItem, IQuestion } from "../models/types";
 import { validateMessages } from "../utils/constants";
 import NextFormButton from "./NextFormButton";
 import { initialValues } from "../utils/formInitialValues";
@@ -149,6 +148,8 @@ const QuestForm: FC<IQuestFormProps> = ({
                 <DatePicker placeholder={item.placeholder} />
               </Form.Item>
             );
+          default:
+            return <></>
         }
       })}
       {children}

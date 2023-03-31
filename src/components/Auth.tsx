@@ -1,4 +1,4 @@
-import React, { FC, MouseEventHandler } from "react";
+import React, { FC } from "react";
 import { Button, Form, Input } from "antd";
 import { LockOutlined, UserOutlined } from "@ant-design/icons";
 import { login } from "../store/reducers/ActionCreators";

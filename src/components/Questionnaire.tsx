@@ -35,7 +35,7 @@ const Questionnaire: FC = () => {
     dispatch(getGenre());
     dispatch(getTheme());
     dispatch(getProduct());
-  }, []);
+  }, [dispatch]);
   const onFinish = (values: any, name: string): void => {
     const themeStringValues = Object.fromEntries(
       Object.entries(values).filter((item) => !Number(item[0]))
