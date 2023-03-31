@@ -1,4 +1,4 @@
-import React, {FC, MouseEventHandler} from "react";
+import React, {FC} from "react";
 import { Button, Form } from "antd";
 import { useAppSelector } from "../hooks/hooks";
 import { useNavigate } from "react-router";
@@ -19,11 +19,11 @@ const NextFormButton: FC<INextBtnProps> = ({
   const errorsCheck = () => {
     let errors:string[] = [];
     form.getFieldsError().forEach(item => {
-      if(item.errors.length != 0) {
+      if(item.errors.length !== 0) {
         errors = [...errors,...item.errors]
       }
     });
-    if (Object.values(form.getFieldsValue()).indexOf(undefined) != -1 || errors.length)
+    if (Object.values(form.getFieldsValue()).indexOf(undefined) !== -1 || errors.length)
       return;
     else {
       handleNext()
