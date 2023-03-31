@@ -1,4 +1,4 @@
-import React, { FC, useState } from "react";
+import React, { FC } from "react";
 import { Form, Input, Button } from "antd";
 import { useRegisterMutation } from "../api/RegisterApi";
 import { useAppDispatch } from "../hooks/hooks";
@@ -6,7 +6,7 @@ import { useNavigate } from "react-router";
 import { auth } from "../store/reducers/AuthSlice";
 
 export const Register: FC = () => {
-  const [errors, setErrors] = useState<string | null>(null);
+  // const [errors, setErrors] = useState<string | null>(null);
   const navigate = useNavigate();
   const [register] = useRegisterMutation();
   const dispatch = useAppDispatch();
@@ -15,10 +15,9 @@ export const Register: FC = () => {
     await register(values).then((response) => {
       const { data, error }: any = response;
       if (error) {
-        setErrors("Пользователь с данной почтой уже существует")
+        return
       }
       else {
-          setErrors(null);
           dispatch(auth(data));
           navigate("/order");
       }
